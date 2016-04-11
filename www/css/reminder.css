@@ -1,0 +1,68 @@
+.editmldialog label { min-width: 200px; display: inline-block; }
+.editmldialog input[type=text] { min-width: 600px; display: inline-block; }
+.editgremiumdialog label { min-width: 200px; display: inline-block; }
+.editgremiumdialog input[type=text] { min-width: 600px; display: inline-block; }
+.editpersonrole label, .editpersonrole span.label { min-width: 200px; display: inline-block; }
+.editpersonrole input[type=text], .editpersonrole textarea { min-width: 600px; display: inline-block; vertical-align:top; }
+.msg { display: block; border: thin red solid; margin: 5px; font-size: xx-large; text-align: center; }
+select.gremienauswahl { font-size: x-small; }
+ul.pageselect li { display: inline-block; }
+ul.pageselect li:before { content: ' \2022 '; }
+ul.pageselect li:first-child:before { content: ''; }
+span.rolle_gremienname {  white-space:nowrap; }
+div.td { vertical-align: top; }
+div.kommentar { display: inline-block; vertical-align: top; }
+.personinactive, .gremiuminactive, .rolleinactive { background-color: silver; }
+div.table { display:table; border-collapse:collapse; }
+form.tr, div.tr { display:table-row; }
+div.td { display:table-cell; }
+div.th { display:table-cell; font-weight: bold; text-align: center; }
+div.tbody { display:table-row-group; }
+div.thead { display:table-header-group; }
+div.tfoot { display:table-footer-group; }
+@media not print {
+ .printonly { display: none; }
+}
+@media print {
+ .notprint { display: none; }
+}
+@media screen and (max-width: 1767px) {
+    .dataTables_wrapper .dataTables_paginate li.paginate_button.previous {
+        display: inline-block;
+    }
+    .dataTables_wrapper .dataTables_paginate li.paginate_button.next {
+        display: inline-block;
+    }
+    .dataTables_wrapper .dataTables_paginate li.paginate_button {
+        display: none;
+    }
+}
+
+a[href^="mailto"]:before {
+ font-family: FontAwesome;
+ content: "\f003";
+}
+
+.nobr {
+  white-space: nowrap;
+}
+
+/* table.ui-datepicker-calendar td.ui-state-highlight a { background:tomato; }  */
+
+/* begin: jQuery UI Datepicker moving pixels fix */
+	table.ui-datepicker-calendar {border-collapse: separate;}
+	.ui-datepicker-calendar td {border: 1px solid transparent;}
+/* end: jQuery UI Datepicker moving pixels fix */
+
+/* begin: jQuery UI Datepicker emphasis on selected dates */
+.ui-datepicker .ui-datepicker-calendar .ui-state-highlight a {
+	background: #743620 none; /* a color that fits the widget theme */
+	color: white; /* a color that is readeable with the color above */
+}
+/* end: jQuery UI Datepicker emphasis on selected dates */
+
+div.form-control.kommentar {
+  height: auto;
+  min-height: 35px;
+}
+
