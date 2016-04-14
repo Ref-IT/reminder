@@ -19,6 +19,12 @@ function escapeMe($d, $row) {
   return htmlspecialchars($d);
 }
 
+foreach (["to_email","cc_email","bcc_email"] as $key) {
+  if (!isset($_REQUEST[$key])) continue;
+  if (trim($_REQUEST[$key]) == "") continue;
+  $obj->parseAddressList($_REQUEST[$key], 'example.org', FALSE);
+}
+
 if (isset($_POST["action"])) {
  $msgs = Array();
  $ret = false;

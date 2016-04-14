@@ -5,6 +5,7 @@ $emailToSend = listAllMail();
 $mail_object = Mail::factory('smtp', array("debug" => false, "timeout" => 5));
 $obj = new Mail_RFC822();
 
+
 ?>
 <table class="table">
 <tr><th>Nachricht</th><th>Datum</th><th>Betreff</th><th>An</th><th>Gesendet</th></tr>
@@ -27,20 +28,15 @@ foreach ($emailToSend as $e) {
   $message = chunk_split(base64_encode($m["message"]));
 
   $to = Array();
-  $tmp = $obj->parseAddressList($m["to_email"], 'example.org', FALSE);
-  foreach ($tmp as $t) {
-    $to[] = $t->mailbox."@".$t->host;
-  }
-  $tmp = $obj->parseAddressList($m["cc_email"], 'example.org', FALSE);
-  foreach ($tmp as $t) {
-    $to[] = $t->mailbox."@".$t->host;
-  }
-  $tmp = $obj->parseAddressList($m["bcc_email"], 'example.org', FALSE);
-  foreach ($tmp as $t) {
-    $to[] = $t->mailbox."@".$t->host;
+  foreach (["to_email","cc_email","bcc_email"] as $key) {
+    if (trim($m[$key]) == "") continue;
+    $tmp = $obj->parseAddressList($m[$key], 'example.org', FALSE);
+    foreach ($tmp as $t) {
+      $to[] = $t->mailbox."@".$t->host;
+    }
   }
 
-  $res = (true === $mail_object->send($to, $header, $message));
+#  $res = (true === $mail_object->send($to, $header, $message));
 
 ?><tr>
    <td><?php echo htmlspecialchars($e["message_id"]); ?></td>

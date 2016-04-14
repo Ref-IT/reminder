@@ -28,20 +28,16 @@ foreach ($emailToSend as $e) {
     "Subject"                   => $subject,
     "Date"                      => date('r', time()),
   );
-  $message = chunk_split(base64_encode($m["message"]));
+  $message = $m["message"]."\n\n--\nAutomatisch erzeugte Nachricht\nVerwaltung: https://helfer.stura.tu-ilmenau.de/reminder/index.php?tab=message.edit&message_id=".$e["message_id"];
+  $message = chunk_split(base64_encode($message));
 
   $to = Array();
-  $tmp = $obj->parseAddressList($m["to_email"], 'example.org', FALSE);
-  foreach ($tmp as $t) {
-    $to[] = $t->mailbox."@".$t->host;
-  }
-  $tmp = $obj->parseAddressList($m["cc_email"], 'example.org', FALSE);
-  foreach ($tmp as $t) {
-    $to[] = $t->mailbox."@".$t->host;
-  }
-  $tmp = $obj->parseAddressList($m["bcc_email"], 'example.org', FALSE);
-  foreach ($tmp as $t) {
-    $to[] = $t->mailbox."@".$t->host;
+  foreach (["to_email","cc_email","bcc_email"] as $key) {
+    if (trim($m[$key]) == "") continue;
+    $tmp = $obj->parseAddressList($m[$key], 'example.org', FALSE);
+    foreach ($tmp as $t) {
+      $to[] = $t->mailbox."@".$t->host;
+    }
   }
 
   $res = (true === $mail_object->send($to, $header, $message));
