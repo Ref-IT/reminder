@@ -2,7 +2,7 @@
 
 $metadata = [
 #  "id" => "ID",
-  "name" => "Betreff",
+  "subject" => "Betreff",
   "to_email" => "Empfänger",
   "cc_email" => "Empfänger (CC)",
   "bcc_email" => "Empfänger (BCC)",

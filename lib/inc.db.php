@@ -2,7 +2,8 @@
 global $pdo;
 global $DB_DSN, $DB_USERNAME, $DB_PASSWORD, $DB_PREFIX;
 
-$pdo = new PDO($DB_DSN, $DB_USERNAME, $DB_PASSWORD, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8; SET lc_time_names = 'de_DE';"));
+#$pdo = new PDO($DB_DSN, $DB_USERNAME, $DB_PASSWORD, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8; SET lc_time_names = 'de_DE';"));
+$pdo = new PDO($DB_DSN, $DB_USERNAME, $DB_PASSWORD, array());
 
 # Nachrichten
 
@@ -189,7 +190,8 @@ function listAllMail() {
    $row = $query->fetch(PDO::FETCH_ASSOC);
    $minDate = $row["ld"];
 
-   $query = $pdo->prepare("SELECT s.* FROM {$DB_PREFIX}schedule s NATURAL LEFT JOIN {$DB_PREFIX}txlog t WHERE (s.send_date <= CURRENT_DATE) AND (t.send_date IS NULL OR t.send_date < CURRENT_DATE) AND (s.send_date >= ?)");
+   # to be sent by now AND not yet send AND not too old
+   $query = $pdo->prepare("SELECT s.* FROM {$DB_PREFIX}schedule s NATURAL LEFT JOIN {$DB_PREFIX}txlog t WHERE (s.send_date <= CURRENT_DATE) AND (t.send_date IS NULL) AND (s.send_date >= ?)");
    $query->execute(Array($minDate)) or httperror(print_r($query->errorInfo(),true));
    return $query->fetchAll(PDO::FETCH_ASSOC);
 }
